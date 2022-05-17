@@ -22,7 +22,7 @@ class Cell
   def fire_upon
     @fired_upon = true
     if !empty?
-      @ship.health -= 1
+      @ship.hit
     end
   end
 
