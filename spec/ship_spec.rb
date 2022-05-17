@@ -21,4 +21,9 @@ RSpec.describe Ship do
   it "has beginning health equal to length" do
     expect(@ship.health).to eq 3
   end
+
+  it "loses health when hit is run" do
+    @ship.hit
+    expect(@ship.health).to eq 2
+  end
 end
