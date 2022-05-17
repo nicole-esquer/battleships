@@ -10,5 +10,9 @@ RSpec.describe Ship do
     expect(@ship).to be_a Ship
   end
 
+  it "has a name" do
+    expect(@ship.name).to eq "cruiser"
+  end
+
 
 end
