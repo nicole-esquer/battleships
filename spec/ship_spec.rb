@@ -30,4 +30,9 @@ RSpec.describe Ship do
   it "is not sunk when health is > 0" do
     expect(@ship.sunk?).to eq false
   end
+
+  it "is sunk when health is = 0" do
+    3.times { @ship.hit }
+    expect(@ship.sunk?).to eq true
+  end
 end
