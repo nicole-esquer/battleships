@@ -20,5 +20,9 @@ RSpec.describe Cell do
     expect(@cell.ship).to eq(nil)
   end
 
+  it "is empty? is true" do
+    expect(@cell.empty?).to eq(true)
+  end
+
 
 end
