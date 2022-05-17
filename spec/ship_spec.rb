@@ -18,4 +18,7 @@ RSpec.describe Ship do
     expect(@ship.length).to eq 3
   end
 
+  it "has beginning health equal to length" do
+    expect(@ship.health).to eq 3
+  end
 end
