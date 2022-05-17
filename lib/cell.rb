@@ -13,4 +13,8 @@ class Cell
     return false
   end
 
+  def place_ship(ship)
+    @ship = ship
+  end
+
 end
