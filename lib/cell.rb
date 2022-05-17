@@ -21,6 +21,9 @@ class Cell
 
   def fire_upon
     @fired_upon = true
+    if !empty?
+      @ship.health -= 1
+    end
   end
 
 end
