@@ -26,4 +26,8 @@ RSpec.describe Ship do
     @ship.hit
     expect(@ship.health).to eq 2
   end
+
+  it "is not sunk when health is > 0" do
+    expect(@ship.sunk?).to eq false
+  end
 end
