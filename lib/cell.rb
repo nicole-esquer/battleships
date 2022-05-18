@@ -6,6 +6,10 @@ attr_reader :coordinate, :ship
     @fired_upon = false
   end
 
+  def empty?
+    @ship == nil
+  end
+
 
 
 end
