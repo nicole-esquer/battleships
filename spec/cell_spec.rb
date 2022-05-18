@@ -2,10 +2,9 @@ require './lib/cell'
 require './lib/ship'
 
 RSpec.describe Cell do
-  before :each do
+  before do
     @cell = Cell.new("B4")
-    @ship = Ship.new("cruiser", 3)
-
+    @ship = Ship.new("Cruiser", 3)
   end
 
   it "exists" do
@@ -24,5 +23,12 @@ RSpec.describe Cell do
     expect(@cell.empty?).to eq(true)
   end
 
+  describe "place_ship" do
+    it "places the ship" do
+      @cell.place_ship(@ship)
+      expect(@cell.ship).to be_a(Ship)
+      expect(@cell.ship).to eq(@ship)
+  end
+end
 
 end
