@@ -28,7 +28,48 @@ RSpec.describe Cell do
       @cell.place_ship(@ship)
       expect(@cell.ship).to be_a(Ship)
       expect(@cell.ship).to eq(@ship)
+    end
   end
-end
+
+  describe "fired_upon" do
+    it "returns false if fired_upon?" do
+      expect(@cell.fired_upon?).to eq(false)
+    end
+
+    it "can be fired_upon" do
+      @cell.fire_upon
+     expect(@cell.fired_upon?).to eq(true)
+    end
+  end
+
+  describe "render" do
+    it 'returns "S" if show_ship = true and is not empty and is fired upon' do
+      @cell.place_ship(@ship)
+      expect(@cell.render(true)).to eq("S")
+    end
+
+    it 'returns "." if show_ship is false and is empty and not fired upon' do
+      expect(@cell.render).to eq(".")
+    end
+
+    it 'returns "M" if empty and is fired upon and show ship is false' do
+      @cell.fire_upon
+      expect(@cell.render).to eq("M")
+    end
+
+    it 'returns "X" if not empty? and is fired upon and show ship is false' do
+      @cell.place_ship(@ship)
+      3.times do
+        @cell.fire_upon
+      end
+      expect(@cell.render).to eq("X")
+    end
+
+    it 'returns "H" if not empty? and is fired upon and show ship is false' do
+      @cell.place_ship(@ship)
+      @cell.fire_upon
+      expect(@cell.render).to eq("H")
+    end
+  end
 
 end
