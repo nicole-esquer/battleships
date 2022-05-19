@@ -8,7 +8,7 @@ class Cell
   end
 
   def empty?
-    return @ship == nil
+     @ship == nil
   end
 
   def place_ship(ship)
@@ -16,14 +16,14 @@ class Cell
   end
 
   def fired_upon?
-    return @fired_upon
+      @fired_upon
   end
 
   def fire_upon
     @fired_upon = true
     if !empty?
       @ship.hit
-    end
   end
-
+end
+  
 end
