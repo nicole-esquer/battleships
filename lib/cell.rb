@@ -16,14 +16,26 @@ class Cell
   end
 
   def fired_upon?
-      @fired_upon
+    @fired_upon
   end
 
   def fire_upon
     @fired_upon = true
     if !empty?
       @ship.hit
+    end
   end
-end
-  
+
+  def render(show_ship = false)
+    if !@fired_upon
+      return "S" if show_ship && !empty?
+      return "."
+    end
+
+    return "M" if empty?
+
+    return "X" if @ship.sunk?
+
+    return "H"
+  end
 end
