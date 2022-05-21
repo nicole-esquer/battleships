@@ -19,6 +19,19 @@ class Board
     @cells.key?(coordinate)
   end
 
+
+  def valid_placement?(ship, coordinates)
+    coordinates.each do |coordinate|
+      if valid_coordinate?(coordinate) == false
+        return false
+      end
+    end
+
+    if (ship.length != coordinates.length)
+      return false
+    end
+  end
+
 end
 
 
