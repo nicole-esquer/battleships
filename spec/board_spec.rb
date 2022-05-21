@@ -67,9 +67,9 @@ RSpec.describe Board do
     end
 
     xit "places the ship" do
-      @cell_1 = board.cells
-      @cell_2 = board.cells
-      @cell_3 = board.cells
+      @cell_1 = @board.cells
+      @cell_2 = @board.cells
+      @cell_3 = @board.cells
 
       @cell_1.ship
       @cell_2.ship
