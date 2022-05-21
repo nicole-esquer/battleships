@@ -13,6 +13,18 @@ RSpec.describe Board do
     expect(@board).to be_a(Board)
   end
 
+  it "initializes a 4x4 board (16 cells)" do
+    expect(@board.cells.count).to eq 16
+  end
+
+  it "initializes a hash" do
+    expect(@board.cells).to be_a Hash
+  end
+
+  it "initializes a hash of Cell objects" do
+    expect(@board.cells.values[0]).to be_a Cell
+  end
+
   it "validates coords that are true" do
     expect(@board.valid_coordinate?("A1")).to eq(true)
     expect(@board.valid_coordinate?("D4")).to eq(true)
@@ -24,24 +36,24 @@ RSpec.describe Board do
     expect(@board.valid_coordinate?("A22")).to eq(false)
   end
 
-  xit "has coords that equal length of ship" do
+  it "has coords that equal length of ship" do
       expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
   end
 
-  xit "has coords that are consecutive" do
+  it "has coords that are consecutive" do
     expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
     expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
     expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
     expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
   end
 
-  xit "has coords that aren't diagnol" do
+  it "has coords that aren't diagnol" do
     expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
     expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
   end
 
-  xit "has ships with valid placements" do
+  it "has ships with valid placements" do
     expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
     expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to eq(true)
   end
@@ -55,9 +67,9 @@ RSpec.describe Board do
     end
 
     xit "places the ship" do
-      @cell_1 = board.cells
-      @cell_2 = board.cells
-      @cell_3 = board.cells
+      @cell_1 = @board.cells
+      @cell_2 = @board.cells
+      @cell_3 = @board.cells
 
       @cell_1.ship
       @cell_2.ship
