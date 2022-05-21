@@ -7,9 +7,7 @@ class Board
     @cells = {}
 
     ("A".."D").each do |letter|
-      # @rows << letter
       (1..4).each do |number|
-        # @columns << number.to_s
         @cells["#{letter}#{number.to_s}"] = Cell.new("#{letter}#{number.to_s}")
       end
     end
@@ -30,7 +28,6 @@ class Board
       return false
     end
 
-    # Make sure it is x consecutive cells in horizontal or vertical order
     is_horizontal?(coordinates) || is_vertical?(coordinates)
   end
 
@@ -43,7 +40,6 @@ class Board
       same_letter = true
     end
 
-    # Need to figure out how to find if consecutive letters/numbers
     consecutive_numbers = false
     if numbers.each_cons(2).all? {|i,j| j == i + 1}
       consecutive_numbers = true
@@ -61,7 +57,6 @@ class Board
       same_number = true
     end
 
-    # Need to figure out how to find if consecutive letters/numbers
     consecutive_letters = false
     if letters.each_cons(2).all? {|i,j| j == i + 1}
       consecutive_letters = true
@@ -69,5 +64,4 @@ class Board
 
     same_number && consecutive_letters
   end
-
 end
