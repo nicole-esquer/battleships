@@ -1,23 +1,88 @@
-require 'rspec'
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
 
 RSpec.describe Board do
-  before do
+  before (:each) do
     @board = Board.new
-    @cell = Cell.new("B4")
-    @ship = Ship.new("Cruiser", 3)
+    @cruiser = Ship.new('Cruiser', 3)
+    @submarine = Ship.new('Submarine', 2)
   end
 
-  describe "#initialize" do
-    it "is a Board" do
-      expect(@board).to be_a Board
+  it "exists" do
+    expect(@board).to be_a(Board)
+  end
+
+  it "validates coords that are true" do
+    expect(@board.valid_coordinate?("A1")).to eq(true)
+    expect(@board.valid_coordinate?("D4")).to eq(true)
+  end
+
+  it "validates coords that are false" do
+    expect(@board.valid_coordinate?("A5")).to eq(false)
+    expect(@board.valid_coordinate?("E1")).to eq(false)
+    expect(@board.valid_coordinate?("A22")).to eq(false)
+  end
+
+  xit "has coords that equal length of ship" do
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+  end
+
+  xit "has coords that are consecutive" do
+    expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
+    expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
+    expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
+    expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
+  end
+
+  xit "has coords that aren't diagnol" do
+    expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+    expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
+  end
+
+  xit "has ships with valid placements" do
+    expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
+    expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to eq(true)
+  end
+
+  describe "placing the ship" do
+    before (:each) do
+      @board = Board.new
+      @cruiser = Ship.new('Cruiser', 3)
+      @submarine = Ship.new('Submarine', 2)
+      @board.place(@cruiser, ["A1", "A2", "A3"])
     end
 
-    it "creates a hash of cells" do
-      expect(@board.cells).to be_a Hash
+    xit "places the ship" do
+      @cell_1 = board.cells
+      @cell_2 = board.cells
+      @cell_3 = board.cells
+
+      @cell_1.ship
+      @cell_2.ship
+      @cell_3.ship
+
+      expect(@cell_3.ship == @cell_2.ship).to eq(true)
     end
 
+    xit "cannot allow ships to overlap" do
+      expect(@board.valid_placement?(@submarine, ["A1", "B2"])).to eq(false)
+    end
+
+    describe "Rendering the Board" do
+      before(:each) do
+        @board = Board.new
+        @cruiser = Ship.new('Cruiser', 3)
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+      end
+
+      xit 'renders a board' do
+        expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      end
+
+
+    end
   end
 end
