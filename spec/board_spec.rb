@@ -66,19 +66,15 @@ RSpec.describe Board do
       @board.place(@cruiser, ["A1", "A2", "A3"])
     end
 
-    xit "places the ship" do
-      @cell_1 = @board.cells
-      @cell_2 = @board.cells
-      @cell_3 = @board.cells
-
-      @cell_1.ship
-      @cell_2.ship
-      @cell_3.ship
+    it "places the ship" do
+      @cell_1 = @board.cells["A1"]
+      @cell_2 = @board.cells["A2"]
+      @cell_3 = @board.cells["A3"]
 
       expect(@cell_3.ship == @cell_2.ship).to eq(true)
     end
 
-    xit "cannot allow ships to overlap" do
+    it "cannot allow ships to overlap" do
       expect(@board.valid_placement?(@submarine, ["A1", "B2"])).to eq(false)
     end
 
@@ -89,9 +85,19 @@ RSpec.describe Board do
         @board.place(@cruiser, ["A1", "A2", "A3"])
       end
 
-      xit 'renders a board' do
-        expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-        expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      it 'renders a board' do
+        expect(@board.render).to eq(
+        "  1 2 3 4 \n" +
+        "A . . . . \n" +
+        "B . . . . \n" +
+        "C . . . . \n" +
+        "D . . . . \n")
+        expect(@board.render(true)).to eq(
+        "  1 2 3 4 \n" +
+        "A S S S . \n" +
+        "B . . . . \n" +
+        "C . . . . \n" +
+        "D . . . . \n")
       end
 
 
