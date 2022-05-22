@@ -19,7 +19,11 @@ class Board
 
   def valid_placement?(ship, coordinates)
     coordinates.each do |coordinate|
-      if valid_coordinate?(coordinate) == false
+      if !valid_coordinate?(coordinate)
+        return false
+      end
+
+      if @cells["#{coordinate}"].ship != nil
         return false
       end
     end
@@ -64,4 +68,43 @@ class Board
 
     same_number && consecutive_letters
   end
+
+  def place(ship, coordinates)
+    if !valid_placement?(ship, coordinates)
+      return puts "That is not a valid placement."
+    end
+
+    coordinates.each do |coordinate|
+      @cells["#{coordinate}"].place_ship(ship)
+    end
+  end
+
+  def render(show_ship = false)
+      cell_1 = @cells["A1"].render(show_ship)
+      cell_2 = @cells["A2"].render(show_ship)
+      cell_3 = @cells["A3"].render(show_ship)
+      cell_4 = @cells["A4"].render(show_ship)
+      cell_5 = @cells["B1"].render(show_ship)
+      cell_6 = @cells["B2"].render(show_ship)
+      cell_7 = @cells["B3"].render(show_ship)
+      cell_8 = @cells["B4"].render(show_ship)
+      cell_9 = @cells["C1"].render(show_ship)
+      cell_10 = @cells["C2"].render(show_ship)
+      cell_11 = @cells["C3"].render(show_ship)
+      cell_12 = @cells["C4"].render(show_ship)
+      cell_13 = @cells["D1"].render(show_ship)
+      cell_14 = @cells["D2"].render(show_ship)
+      cell_15 = @cells["D3"].render(show_ship)
+      cell_16 = @cells["D4"].render(show_ship)
+
+      long_string = "  1 2 3 4 \n" +
+      "A #{cell_1} #{cell_2} #{cell_3} #{cell_4} \n" +
+      "B #{cell_5} #{cell_6} #{cell_7} #{cell_8} \n" +
+      "C #{cell_9} #{cell_10} #{cell_11} #{cell_12} \n" +
+      "D #{cell_13} #{cell_14} #{cell_15} #{cell_16} \n"
+      puts long_string
+      return long_string
+  end
+
+
 end
