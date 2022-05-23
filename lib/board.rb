@@ -102,8 +102,18 @@ class Board
       "B #{cell_5} #{cell_6} #{cell_7} #{cell_8} \n" +
       "C #{cell_9} #{cell_10} #{cell_11} #{cell_12} \n" +
       "D #{cell_13} #{cell_14} #{cell_15} #{cell_16} \n"
-      puts long_string
       return long_string
+  end
+
+  def get_valid_coordinates(ship)
+    game_coordinates = @cells.keys
+    ship_coordinates = []
+
+    until valid_placement?(ship, ship_coordinates) do
+      ship_coordinates = game_coordinates.sample(ship.length)
+    end
+
+    return ship_coordinates
   end
 
 
