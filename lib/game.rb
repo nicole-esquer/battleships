@@ -1,6 +1,8 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
+require './lib/computer'
+
 
 
 class Game
@@ -28,6 +30,9 @@ class Game
   end
 
   def start
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
 
   end
 
