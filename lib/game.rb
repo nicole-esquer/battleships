@@ -18,7 +18,6 @@ class Game
 
     if response == "p"
       puts "Let's go!"
-      gamestate
     elsif response == "q"
       puts "Bye!"
     else
@@ -32,6 +31,7 @@ class Game
     computer_submarine = Ship.new('Submarine', 2)
     @computer_board.place(computer_cruiser, @computer_board.get_valid_coordinates(computer_cruiser))
         @computer_board.place(computer_submarine, @computer_board.get_valid_coordinates(computer_submarine))
+    # Figure out a way for this to not spit out array of computer ships
   end
 
 
@@ -41,11 +41,13 @@ class Game
     puts "The cruiser is three units long and the submarine is two units long."
     player_board_render = @player_board.render(true)
     puts player_board_render
+    # Figure out a way for this to not spit out nil
   end
 
   def player_place_cruiser
     puts "Enter the coordinates to use for your cruiser (3 coordinates):"
     puts "Type them in this format: A1 A2 A3"
+    player_cruiser = Ship.new('cruiser', 3)
     player_cruiser_coords = gets.chomp.upcase.split
     if @player_board.valid_placement?(player_cruiser, player_cruiser_coords)
       @player_board.place(player_cruiser, player_cruiser_coords)
@@ -53,15 +55,32 @@ class Game
       player_place_submarine
     else
       puts "Those coordinates are not valid. Please try again."
-      player_place_submarine
+      player_place_cruiser
     end
   end
 
   def player_place_submarine
+    puts "Enter the coordinates to use for your submarine (2 coordinates):"
+    puts "Type them in this format: A1 A2"
+    player_submarine = Ship.new('submarine', 2)
+    player_submarine_coords = gets.chomp.upcase.split
+    if @player_board.valid_placement?(player_submarine, player_submarine_coords)
+      @player_board.place(player_submarine, player_submarine_coords)
+      @player_board.render(true)
+    else
+      puts "Those coordinates are not valid. Please try again."
+      player_place_submarine
+    end
+  end
 
+  def turn
+    puts "=============COMPUTER BOARD============="
+    puts @computer_board.render
+    puts "==============PLAYER BOARD=============="
+    puts @player_board.render(true)
+    # Figure out how to not display a nil after this line
+
+    
   end
 
 end
-
-# game = Game.new
-# game.main_menu
