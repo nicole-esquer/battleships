@@ -20,6 +20,7 @@ class Game
 
     if response == "p"
       puts "Let's go!"
+      place_computer_ships
     elsif response == "q"
       puts "Bye!"
     else
@@ -33,6 +34,7 @@ class Game
     computer_submarine = Ship.new('Submarine', 2)
     @computer_board.place(computer_cruiser, @computer_board.get_valid_coordinates(computer_cruiser))
         @computer_board.place(computer_submarine, @computer_board.get_valid_coordinates(computer_submarine))
+    start
     # Figure out a way for this to not spit out array of computer ships
   end
 
@@ -43,7 +45,7 @@ class Game
     puts "The cruiser is three units long and the submarine is two units long."
     player_board_render = @player_board.render(true)
     puts player_board_render
-    # Figure out a way for this to not spit out nil
+    player_place_cruiser
   end
 
   def player_place_cruiser
@@ -69,6 +71,7 @@ class Game
     if @player_board.valid_placement?(player_submarine, player_submarine_coords)
       @player_board.place(player_submarine, player_submarine_coords)
       @player_board.render(true)
+      turn
     else
       puts "Those coordinates are not valid. Please try again."
       player_place_submarine
@@ -152,18 +155,27 @@ class Game
 
   def game_over
     if @computer_ships_count == 0
-      puts "You won!"
+      puts "✨✨✨✨✨ You won! ✨✨✨✨✨"
       puts "=============COMPUTER BOARD============="
       puts @computer_board.render
       puts "==============PLAYER BOARD=============="
       puts @player_board.render(true)
     else
-      puts "I won!"
+      puts "🤖🤖🤖🤖🤖 I won! 🤖🤖🤖🤖🤖"
       puts "=============COMPUTER BOARD============="
       puts @computer_board.render
       puts "==============PLAYER BOARD=============="
       puts @player_board.render(true)
     end
+    reset
+  end
+
+  def reset
+    @player_board = Board.new
+    @computer_board = Board.new
+    @player_ships_count = 2
+    @computer_ships_count = 2
+    main_menu
   end
 
   # play again method?
