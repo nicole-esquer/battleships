@@ -159,12 +159,28 @@ class Game
     reset
   end
 
+  def play_again
+    puts "Would you like to play again?"
+    puts "Enter p to play. Enter q to quit."
+    response = gets.chomp.downcase
+
+    if response == "p"
+      puts "Nice to see you again!"
+      place_computer_ships
+    elsif response == "q"
+      puts "Bye!"
+    else
+      puts "I'm sorry, that's an invalid entry. Please try again."
+      play_again
+    end
+  end
+
   def reset
     @player_board = Board.new
     @computer_board = Board.new
     @player_ships_count = 2
     @computer_ships_count = 2
-    main_menu
+    play_again
   end
 
 end
