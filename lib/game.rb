@@ -9,6 +9,8 @@ class Game
   def initialize
     @player_board = Board.new
     @computer_board = Board.new
+    @player_ships_count = 2
+    @computer_ships_count = 2
   end
 
   def main_menu
@@ -80,7 +82,51 @@ class Game
     puts @player_board.render(true)
     # Figure out how to not display a nil after this line
 
-    
-  end
+    player_turn = true
+    computer_turn = false
+    player_shot = ""
 
+    #player does stuff until it shoots
+    #after play shoots, player_turn = false, computer_turn = true
+    while player_turn
+      puts "Enter the coordinate for your shot:"
+      player_shot = gets.chomp.upcase
+      if !@computer_board.valid_coordinate?(player_shot)
+        puts "That is not a valid coordinate. Please try again."
+        player_turn
+      elsif @computer_board.cells[player_shot].fired_upon?
+        puts "That cells has already been shot at. Please try again."
+        player_turn
+      else
+        @computer_board.cells[player_shot].fire_upon
+        player_turn = false
+        computer_turn = true
+      end
+    end
+
+    while computer_turn
+      #coordinate and has to be a string
+      computer_shot = @player_board.cells.keys.sample(1)
+      computer_shot_string = computer_shot[0]
+      @player_board.cells[computer_shot].fire_upon
+    end
+
+    puts "Your shot on #{player_shot} was a hit/miss/sink"
+    puts "My shot on #{computer_shot} was a hit/miss/sink"
+
+    # Check if all ships for either person are sunk
+    # This turn actually needs to be in a conditional where we are checking
+    # if all the ships are sunk or not
+    !turn
+
+  end
+end
+
+do an each
+
+player_ships_health = []
+player_board.cells.each do |cell|
+  if cell.ship.health != 0
+    player_ships << []
+  end
 end
