@@ -23,5 +23,5 @@ RSpec.describe Game do
     expect(computer_cruiser).to be_instance_of(Ship)
     expect(computer_submarine).to be_instance_of(Ship)
   end
-
+  
 end
