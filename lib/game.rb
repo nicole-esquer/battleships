@@ -1,7 +1,6 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
-require './lib/computer'
 
 class Game
   attr_reader :player_board, :computer_board, :player_ships_count, :computer_ships_count
