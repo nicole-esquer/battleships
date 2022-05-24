@@ -8,13 +8,14 @@ class Computer
   end
 
   def get_valid_coordinates(ship)
-    game_coordinates = @cells.keys
+    game_coordinates = @board.cells.keys
     ship_coordinates = []
 
-    until valid_placement?(ship, ship_coordinates) do
+    until @board.valid_placement?(ship, ship_coordinates) do
       ship_coordinates = game_coordinates.sample(ship.length)
     end
-    ship_coordinates
+
+    return ship_coordinates
   end
 
 end
