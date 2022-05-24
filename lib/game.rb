@@ -4,7 +4,7 @@ require './lib/ship'
 require './lib/computer'
 
 class Game
-  attr_reader :player_board, :computer_board
+  attr_reader :player_board, :computer_board, :player_ships_count, :computer_ships_count
 
   def initialize
     @player_board = Board.new
@@ -93,11 +93,13 @@ class Game
       puts "Enter the coordinate for your shot:"
       player_shot = gets.chomp.upcase
       if !@computer_board.valid_coordinate?(player_shot)
+        puts "That is not a valid coordinate on the board! Please try again."
         player_turn = true
-        break
+        # re-render the board?
       elsif @computer_board.cells[player_shot].fired_upon?
         puts "That cells has already been shot at. Please try again."
         player_turn = true
+        # re-render the board?
       else
         @computer_board.cells[player_shot].fire_upon
         if @computer_board.cells[player_shot].render == "M"
@@ -163,5 +165,8 @@ class Game
       puts @player_board.render(true)
     end
   end
+
+  # play again method?
+  # reset all variables
 
 end
