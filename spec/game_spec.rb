@@ -10,7 +10,11 @@ RSpec.describe Game do
     @computer_ships_count = 2
   end
 
-
+  it 'exists' do
+    expect(@game).to be_instance_of(Game)
+    expect(@player_board).to be_instance_of(Board)
+    expect(@computer_board).to be_instance_of(Board)
+  end
 
 
 
