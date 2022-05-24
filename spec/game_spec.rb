@@ -16,7 +16,11 @@ RSpec.describe Game do
     expect(@computer_board).to be_instance_of(Board)
   end
 
-
-
+  it "attributes" do
+    computer_cruiser = Ship.new('Cruiser', 3)
+    computer_submarine = Ship.new('Submarine', 2)
+    expect(computer_cruiser).to be_instance_of(Ship)
+    expect(computer_submarine).to be_instance_of(Ship)
+  end
 
 end
