@@ -1,8 +1,3 @@
-require './lib/board'
-require './lib/cell'
-require './lib/ship'
-require './lib/computer'
-
 class Game
   attr_reader :player_board, :computer_board, :player_ships_count, :computer_ships_count
 
@@ -35,7 +30,6 @@ class Game
     @computer_board.place(computer_cruiser, @computer_board.get_valid_coordinates(computer_cruiser))
         @computer_board.place(computer_submarine, @computer_board.get_valid_coordinates(computer_submarine))
     start
-    # Figure out a way for this to not spit out array of computer ships
   end
 
 
@@ -83,26 +77,21 @@ class Game
     puts @computer_board.render
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
-    # Figure out how to not display a nil after this line
 
     player_turn = true
     computer_turn = false
     player_shot = ""
     computer_shot = ""
 
-    #player does stuff until it shoots
-    #after play shoots, player_turn = false, computer_turn = true
     while player_turn && @computer_ships_count > 0
       puts "Enter the coordinate for your shot:"
       player_shot = gets.chomp.upcase
       if !@computer_board.valid_coordinate?(player_shot)
         puts "That is not a valid coordinate on the board! Please try again."
         player_turn = true
-        # re-render the board?
       elsif @computer_board.cells[player_shot].fired_upon?
         puts "That cells has already been shot at. Please try again."
         player_turn = true
-        # re-render the board?
       else
         @computer_board.cells[player_shot].fire_upon
         if @computer_board.cells[player_shot].render == "M"
@@ -177,8 +166,5 @@ class Game
     @computer_ships_count = 2
     main_menu
   end
-
-  # play again method?
-  # reset all variables
 
 end
