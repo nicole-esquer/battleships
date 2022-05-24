@@ -4,7 +4,7 @@ require './lib/ship'
 require './lib/computer'
 
 class Game
-  attr_reader :player_board, :computer_board
+  attr_reader :player_board, :computer_board, :player_ships_count, :computer_ships_count
 
   def initialize
     @player_board = Board.new
@@ -85,48 +85,88 @@ class Game
     player_turn = true
     computer_turn = false
     player_shot = ""
+    computer_shot = ""
 
     #player does stuff until it shoots
     #after play shoots, player_turn = false, computer_turn = true
-    while player_turn
+    while player_turn && @computer_ships_count > 0
       puts "Enter the coordinate for your shot:"
       player_shot = gets.chomp.upcase
       if !@computer_board.valid_coordinate?(player_shot)
-        puts "That is not a valid coordinate. Please try again."
-        player_turn
+        puts "That is not a valid coordinate on the board! Please try again."
+        player_turn = true
+        # re-render the board?
       elsif @computer_board.cells[player_shot].fired_upon?
         puts "That cells has already been shot at. Please try again."
-        player_turn
+        player_turn = true
+        # re-render the board?
       else
         @computer_board.cells[player_shot].fire_upon
+        if @computer_board.cells[player_shot].render == "M"
+          puts "You missed your shot on #{player_shot}."
+        elsif @computer_board.cells[player_shot].render == "H"
+          puts "You hit your shot on #{player_shot}."
+        elsif @computer_board.cells[player_shot].render == "X"
+          puts "You sunk my ship on #{player_shot}!"
+          @computer_ships_count -= 1
+        end
         player_turn = false
         computer_turn = true
       end
     end
 
-    while computer_turn
-      #coordinate and has to be a string
-      computer_shot = @player_board.cells.keys.sample(1)
-      computer_shot_string = computer_shot[0]
-      @player_board.cells[computer_shot].fire_upon
+    if @computer_ships_count == 0
+      game_over
+      return "Game over!"
     end
 
-    puts "Your shot on #{player_shot} was a hit/miss/sink"
-    puts "My shot on #{computer_shot} was a hit/miss/sink"
+    while computer_turn && @player_ships_count > 0
+      computer_shot = @player_board.cells.keys.sample(1)
+      computer_shot_string = computer_shot[0]
+      if @player_board.cells[computer_shot_string].fired_upon?
+        computer_turn = true
+      else
+        @player_board.cells[computer_shot_string].fire_upon
+        if @player_board.cells[computer_shot_string].render == "M"
+          puts "I missed my shot on #{computer_shot_string}."
+        elsif @player_board.cells[computer_shot_string].render == "H"
+          puts "I hit my shot on #{computer_shot_string}."
+        elsif @player_board.cells[computer_shot_string].render == "X"
+          puts "I sunk your ship on #{computer_shot_string}!"
+          @player_ships_count -= 1
+        end
+        player_turn = true
+        computer_turn = false
+      end
+    end
 
-    # Check if all ships for either person are sunk
-    # This turn actually needs to be in a conditional where we are checking
-    # if all the ships are sunk or not
-    !turn
+    if @player_ships_count == 0
+      game_over
+      return "Game over!"
+    end
 
+    if @player_ships_count > 0 && @computer_ships_count > 0
+      turn
+    end
   end
-end
 
-do an each
-
-player_ships_health = []
-player_board.cells.each do |cell|
-  if cell.ship.health != 0
-    player_ships << []
+  def game_over
+    if @computer_ships_count == 0
+      puts "You won!"
+      puts "=============COMPUTER BOARD============="
+      puts @computer_board.render
+      puts "==============PLAYER BOARD=============="
+      puts @player_board.render(true)
+    else
+      puts "I won!"
+      puts "=============COMPUTER BOARD============="
+      puts @computer_board.render
+      puts "==============PLAYER BOARD=============="
+      puts @player_board.render(true)
+    end
   end
+
+  # play again method?
+  # reset all variables
+
 end
