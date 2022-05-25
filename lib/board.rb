@@ -2,8 +2,6 @@ class Board
   attr_reader :cells, :rows, :columns
 
   def initialize
-    @rows = []
-    @columns = []
     @cells = {}
 
     ("A".."D").each do |letter|
