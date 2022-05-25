@@ -76,6 +76,18 @@ RSpec.describe Board do
     end
   end
 
+  describe "#is_vertical?" do
+    it "returns true if a set of cells is vertical" do
+      cruiser_coordinates = ["A1", "B1", "C1"]
+      expect(@board.is_vertical?(cruiser_coordinates)).to be true
+    end
+
+    it "returns false if a set of cells is not vertical" do
+      cruiser_coordinates = ["A1", "A2", "A3"]
+      expect(@board.is_vertical?(cruiser_coordinates)).to be false
+    end
+  end
+
   describe "#place" do
     before (:each) do
       @cell_1 = @board.cells["A1"]
