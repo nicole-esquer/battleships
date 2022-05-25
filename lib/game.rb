@@ -72,11 +72,15 @@ class Game
     end
   end
 
-  def turn
+  def show_boards
     puts "=============COMPUTER BOARD============="
     puts @computer_board.render
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
+  end
+
+  def turn
+    show_boards
 
     player_turn = true
     computer_turn = false
@@ -145,16 +149,10 @@ class Game
   def game_over
     if @computer_ships_count == 0
       puts "✨✨✨✨✨ You won! ✨✨✨✨✨"
-      puts "=============COMPUTER BOARD============="
-      puts @computer_board.render
-      puts "==============PLAYER BOARD=============="
-      puts @player_board.render(true)
+      show_boards
     else
       puts "🤖🤖🤖🤖🤖 I won! 🤖🤖🤖🤖🤖"
-      puts "=============COMPUTER BOARD============="
-      puts @computer_board.render
-      puts "==============PLAYER BOARD=============="
-      puts @player_board.render(true)
+      show_boards
     end
     reset
   end
