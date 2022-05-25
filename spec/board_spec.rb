@@ -99,8 +99,15 @@ RSpec.describe Board do
         "C . . . . \n" +
         "D . . . . \n")
       end
+    end
 
-
+    describe "get_valid_coordinates" do
+      it "can get valid coordinates for a computer board" do
+      @board = Board.new
+      @cruiser = Ship.new('Cruiser', 3)
+      computer_coordinates = @board.get_valid_coordinates(@cruiser)
+      expect(@board.valid_placement?(@cruiser, computer_coordinates)).to eq true
+      end
     end
   end
 end
